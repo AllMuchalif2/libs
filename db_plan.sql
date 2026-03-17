@@ -1,0 +1,250 @@
+CREATE TABLE IF NOT EXISTS `users` (
+	`user_id` BIGINT AUTO_INCREMENT,
+	`username` VARCHAR(50) NOT NULL UNIQUE,
+	`password` VARCHAR(255) NOT NULL,
+	`name` VARCHAR(100) NOT NULL,
+	`email` VARCHAR(100) NOT NULL,
+	`role` ENUM('admin', 'pustakawan') NOT NULL,
+	`last_login` DATETIME DEFAULT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`user_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `member_types` (
+	`member_type_id` BIGINT AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL,
+	`loan_limit` INTEGER NOT NULL,
+	`loan_duration` INTEGER NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`member_type_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `members` (
+	`member_id` BIGINT AUTO_INCREMENT,
+	`nim` VARCHAR(30) NOT NULL UNIQUE,
+	`password` VARCHAR(255) NOT NULL,
+	`member_type_id` BIGINT NOT NULL,
+	`name` VARCHAR(100) NOT NULL,
+	`gender` ENUM('L', 'P') NOT NULL,
+	`faculty` VARCHAR(100) NOT NULL,
+	`study_program` VARCHAR(100) NOT NULL,
+	`whatsapp_number` VARCHAR(20) NOT NULL,
+	`address` TEXT NOT NULL,
+	`is_active` BOOLEAN DEFAULT true,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`member_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `visitors` (
+	`visitor_id` BIGINT AUTO_INCREMENT,
+	`member_id` BIGINT,
+	`name` VARCHAR(255) NOT NULL,
+	`visit_date` DATETIME NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`visitor_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_publishers` (
+	`publisher_id` BIGINT AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`publisher_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_authors` (
+	`author_id` BIGINT AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`author_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_subjects` (
+	`subject_id` BIGINT AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`subject_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_topics` (
+	`topic_id` BIGINT AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`topic_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_gmds` (
+	`gmd_id` BIGINT AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`gmd_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_locations` (
+	`location_id` BIGINT AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`location_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `biblios` (
+	`biblio_id` BIGINT AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`publisher_id` BIGINT NOT NULL,
+	`gmd_id` BIGINT NOT NULL,
+	`isbn_issn` VARCHAR(50),
+	`publish_year` VARCHAR(10) NOT NULL,
+	`classification` VARCHAR(10) NOT NULL,
+	`cover_image` VARCHAR(255),
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`biblio_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `biblio_authors` (
+	`biblio_id` BIGINT NOT NULL,
+	`author_id` BIGINT NOT NULL,
+	PRIMARY KEY(`biblio_id`, `author_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `biblio_subjects` (
+	`biblio_id` BIGINT NOT NULL,
+	`subject_id` BIGINT NOT NULL,
+	PRIMARY KEY(`biblio_id`, `subject_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `biblio_topics` (
+	`biblio_id` BIGINT NOT NULL,
+	`topic_id` BIGINT NOT NULL,
+	PRIMARY KEY(`biblio_id`, `topic_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `items` (
+	`item_id` BIGINT AUTO_INCREMENT,
+	`biblio_id` BIGINT NOT NULL,
+	`item_code` VARCHAR(50) NOT NULL,
+	`location_id` BIGINT NOT NULL,
+	`coll_type_id` BIGINT NOT NULL,
+	`status` ENUM('Dipinjam', 'Rusak', 'Hilang', 'Tersedia') NOT NULL DEFAULT 'Tersedia',
+	`call_number` VARCHAR(20) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`item_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `loans` (
+	`loan_id` BIGINT AUTO_INCREMENT,
+	`item_id` BIGINT NOT NULL,
+	`member_id` BIGINT NOT NULL,
+	`loan_date` DATE NOT NULL,
+	`due_date` DATE NOT NULL,
+	`return_date` DATE DEFAULT NULL,
+	`is_returned` BOOLEAN DEFAULT false,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`loan_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `fines` (
+	`fine_id` BIGINT AUTO_INCREMENT,
+	`loan_id` BIGINT NOT NULL,
+	`nominal` INTEGER NOT NULL,
+	`is_paid` BOOLEAN DEFAULT false,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`fine_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_holidays` (
+	`holiday_id` BIGINT AUTO_INCREMENT,
+	`holiday_date` DATE NOT NULL UNIQUE,
+	`description` VARCHAR(255) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`holiday_id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `mst_coll_type` (
+	`coll_type_id` BIGINT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`coll_type_id`)
+);
+
+
+ALTER TABLE `members`
+ADD FOREIGN KEY(`member_type_id`) REFERENCES `member_types`(`member_type_id`)
+ON UPDATE NO ACTION ON DELETE RESTRICT;
+ALTER TABLE `visitors`
+ADD FOREIGN KEY(`member_id`) REFERENCES `members`(`member_id`)
+ON UPDATE NO ACTION ON DELETE SET NULL;
+ALTER TABLE `biblios`
+ADD FOREIGN KEY(`publisher_id`) REFERENCES `mst_publishers`(`publisher_id`)
+ON UPDATE NO ACTION ON DELETE RESTRICT;
+ALTER TABLE `biblios`
+ADD FOREIGN KEY(`gmd_id`) REFERENCES `mst_gmds`(`gmd_id`)
+ON UPDATE NO ACTION ON DELETE RESTRICT;
+ALTER TABLE `biblio_authors`
+ADD FOREIGN KEY(`biblio_id`) REFERENCES `biblios`(`biblio_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `biblio_authors`
+ADD FOREIGN KEY(`author_id`) REFERENCES `mst_authors`(`author_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `biblio_subjects`
+ADD FOREIGN KEY(`biblio_id`) REFERENCES `biblios`(`biblio_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `biblio_subjects`
+ADD FOREIGN KEY(`subject_id`) REFERENCES `mst_subjects`(`subject_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `biblio_topics`
+ADD FOREIGN KEY(`biblio_id`) REFERENCES `biblios`(`biblio_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `biblio_topics`
+ADD FOREIGN KEY(`topic_id`) REFERENCES `mst_topics`(`topic_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `items`
+ADD FOREIGN KEY(`biblio_id`) REFERENCES `biblios`(`biblio_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `items`
+ADD FOREIGN KEY(`location_id`) REFERENCES `mst_locations`(`location_id`)
+ON UPDATE NO ACTION ON DELETE RESTRICT;
+ALTER TABLE `loans`
+ADD FOREIGN KEY(`item_id`) REFERENCES `items`(`item_id`)
+ON UPDATE NO ACTION ON DELETE RESTRICT;
+ALTER TABLE `loans`
+ADD FOREIGN KEY(`member_id`) REFERENCES `members`(`member_id`)
+ON UPDATE NO ACTION ON DELETE RESTRICT;
+ALTER TABLE `fines`
+ADD FOREIGN KEY(`loan_id`) REFERENCES `loans`(`loan_id`)
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE `items`
+ADD FOREIGN KEY(`coll_type_id`) REFERENCES `mst_coll_type`(`coll_type_id`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
