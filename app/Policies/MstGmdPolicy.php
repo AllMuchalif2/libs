@@ -2,17 +2,17 @@
 
 namespace App\Policies;
 
-use App\Models\MstHoliday;
+use App\Models\MstGmd;
 use App\Models\User;
 
-class MstHolidayPolicy
+class MstGmdPolicy
 {
     public function viewAny(User $user): bool
     {
         return in_array($user->role, ['admin', 'pustakawan']);
     }
 
-    public function view(User $user, MstHoliday $mstHoliday): bool
+    public function view(User $user, MstGmd $mstGmd): bool
     {
         return in_array($user->role, ['admin', 'pustakawan']);
     }
@@ -22,22 +22,22 @@ class MstHolidayPolicy
         return $user->role === 'admin';
     }
 
-    public function update(User $user, MstHoliday $mstHoliday): bool
+    public function update(User $user, MstGmd $mstGmd): bool
     {
         return $user->role === 'admin';
     }
 
-    public function delete(User $user, MstHoliday $mstHoliday): bool
+    public function delete(User $user, MstGmd $mstGmd): bool
     {
         return $user->role === 'admin';
     }
 
-    public function restore(User $user, MstHoliday $mstHoliday): bool
+    public function restore(User $user, MstGmd $mstGmd): bool
     {
         return $user->role === 'admin';
     }
 
-    public function forceDelete(User $user, MstHoliday $mstHoliday): bool
+    public function forceDelete(User $user, MstGmd $mstGmd): bool
     {
         return $user->role === 'admin';
     }

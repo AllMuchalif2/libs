@@ -28,8 +28,10 @@ class MstHolidayResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Data Master';
+        return 'Master Data';
     }
+
+    protected static ?int $navigationSort = 8;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDateRange;
 
