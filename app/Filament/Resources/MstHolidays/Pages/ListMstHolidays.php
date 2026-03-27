@@ -24,7 +24,6 @@ class ListMstHolidays extends ListRecords
         return [
             Action::make('fetch_holidays')
                 ->label('Fetch Data dari API')
-                ->icon('heroicon-o-cloud-arrow-down')
                 ->color('success')
                 ->visible(fn () => auth()->user()->role === 'admin')
                 ->action(function () {
@@ -39,7 +38,6 @@ class ListMstHolidays extends ListRecords
                 }),
             Action::make('input_libur_panjang')
                 ->label('Input Libur Panjang')
-                ->icon('heroicon-o-calendar-days')
                 ->color('info')
                 ->visible(fn () => auth()->user()->role === 'admin')
                 ->form([
@@ -58,12 +56,12 @@ class ListMstHolidays extends ListRecords
                     $start = Carbon::parse($data['start_date']);
                     $end = Carbon::parse($data['end_date']);
                     $count = 0;
-
+ 
                     while ($start->lte($end)) {
                         $exists = MstHoliday::withTrashed()
                             ->where('holiday_date', $start->toDateString())
                             ->exists();
-
+ 
                         if (!$exists) {
                             MstHoliday::create([
                                 'holiday_date' => $start->toDateString(),
@@ -73,7 +71,7 @@ class ListMstHolidays extends ListRecords
                         }
                         $start->addDay();
                     }
-
+ 
                     Notification::make()
                         ->title("Berhasil")
                         ->body("Berhasil menambahkan {$count} hari libur.")
@@ -81,8 +79,7 @@ class ListMstHolidays extends ListRecords
                         ->send();
                 }),
             CreateAction::make()
-                ->label('Input Hari Libur')
-                ->icon('heroicon-o-plus')
+                ->label('Buat Hari Libur')
                 ->visible(fn () => auth()->user()->role === 'admin'),
         ];
     }
