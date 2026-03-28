@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/buku-tamu', function () {
+    return view('guest-book');
+})->middleware('restrict-ip');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth:member', 'verified'])->name('dashboard');
