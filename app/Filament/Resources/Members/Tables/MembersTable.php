@@ -3,10 +3,12 @@
 namespace App\Filament\Resources\Members\Tables;
 
 use App\Models\Member;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -41,9 +43,9 @@ class MembersTable
                     ->boolean(),
             ])
             ->recordActions([
-                \Filament\Actions\ViewAction::make(),
+                ViewAction::make(),
                 EditAction::make()->visible(fn () => auth()->user()->role === 'admin'),
-                \Filament\Actions\Action::make('resetPassword')
+                Action::make('resetPassword')
                     ->label('Reset Password')
                     ->icon('heroicon-o-key')
                     ->color('warning')
