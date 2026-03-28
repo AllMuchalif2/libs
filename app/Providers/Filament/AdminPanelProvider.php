@@ -34,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
                 'secondary' => Color::Amber,
             ])
             ->navigationGroups([
+                'Keanggotaan',
                 'Master Data',
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')

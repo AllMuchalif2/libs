@@ -19,7 +19,7 @@ class MemberSeeder extends Seeder
         if ($mahasiswaType && $dosenType) {
             DB::table('members')->insert([
                 [
-                    'nim' => '1234567890',
+                    'member_code' => '22.220.0022',
                     'password' => Hash::make('password'),
                     'member_type_id' => $mahasiswaType->member_type_id,
                     'name' => 'John Doe Mahasiswa',
@@ -33,7 +33,7 @@ class MemberSeeder extends Seeder
                     'updated_at' => now(),
                 ],
                 [
-                    'nim' => '0987654321',
+                    'member_code' => 'JANE DOE',
                     'password' => Hash::make('password'),
                     'member_type_id' => $dosenType->member_type_id,
                     'name' => 'Jane Doe Dosen',

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id('member_id');
-            $table->string('nim', 30)->unique();
+            $table->string('member_code', 30)->unique();
             $table->string('password');
             $table->foreignId('member_type_id')->constrained('member_types', 'member_type_id')->restrictOnDelete();
             $table->string('name', 100);

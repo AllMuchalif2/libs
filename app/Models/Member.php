@@ -14,7 +14,7 @@ class Member extends Authenticatable
     protected $primaryKey = 'member_id';
 
     protected $fillable = [
-        'nim',
+        'member_code',
         'password',
         'member_type_id',
         'name',
