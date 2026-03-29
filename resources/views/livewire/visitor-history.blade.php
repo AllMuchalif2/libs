@@ -18,9 +18,9 @@
 
     <div wire:loading class="w-full text-center py-4">
         <div
-            class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white transition ease-in-out duration-150 cursor-not-allowed">
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
+            class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm text-gray-500 dark:text-white transition ease-in-out duration-150 cursor-not-allowed">
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500 dark:text-white"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
                 </circle>
                 <path class="opacity-75" fill="currentColor"
