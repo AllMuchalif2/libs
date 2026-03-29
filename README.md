@@ -1,59 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 1. Pendahuluan
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1.1 Tujuan
+Memigrasi aplikasi perpustakaan dari SLiMS 7 Senayan menjadi aplikasi baru karena masalah keterbaruan dan keamanan.
 
-## About Laravel
+## 1.2 Ruang Lingkup
+**Masuk dalam pengerjaan:**
+1. Fokus platform dan antarmuka
+2. Katalogisasi bibliografi
+3. Manajeman Sirkulasi
+4. Migrasi Data
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Yang tidak masuk dalam pengerjaan:**
+1. Aplikasi KUBUKU
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 1.3 Target Pengguna
+1. **Admin Sistem Perpustakaan:** Pengelola aplikasi perpustakaan. Tingkat tertinggi pengguna aplikasi.
+2. **Pustakawan:** Staff atau pegawai perpustakaan yang hanya bisa mengakses fitur terbatas seperti: pemrosesan peminjaman, pengembalian dan denda. Melihat data buku dan anggota sekaligus cetak kartu anggota.
+3. **Anggota Perpustakaan:** Anggota atau mahasiswa yang terdaftar dalam aplikasi, menggunakan aplikasi untuk melihat riwayat kunjungan, peminjaman, dan denda.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+# 2. Arsitektur & Alur Proses
+*(Bagian ini dapat diisi dengan diagram arsitektur atau flowchart sistem)*
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# 3. Kebutuhan Fungsional (Functional Requirements)
 
-## Laravel Sponsors
+| ID | Fitur | Deskripsi | Prioritas |
+| :--- | :--- | :--- | :--- |
+| **AP-01** | Online Catalog | Sistem menyediakan fitur pencarian dan tampilan detail koleksi buku secara daring. Pengguna (Tamu dan Anggota) dapat mencari buku berdasarkan judul, pengarang, atau kategori, serta melihat informasi bibliografi dan status ketersediaan buku. | High |
+| **AP-02** | Buku Tamu | Sistem menyediakan fitur pencatatan kunjungan digital. Tamu dapat mengisi buku tamu tanpa login, sedangkan Anggota dapat melihat riwayat kunjungan mereka. | Medium |
+| **AP-03** done | Login Anggota | Sistem mengautentikasi Anggota menggunakan username dan password terdaftar. Akses ditolak apabila kredensial tidak valid. | High |
+| **AP-04** | Keanggotaan | Sistem mengelola data keanggotaan sesuai hak akses masing-masing peran. Anggota dapat melihat riwayat kunjungan dan peminjaman dan menerima notifikasi jatuh tempo. Pustakawan dapat mencetak kartu anggota. Admin dapat menarik data dari SIAKAD, menambah anggota baru, dan mencetak kartu anggota. | High |
+| **AP-05** done | Login Pustakawan | Sistem mengautentikasi Pustakawan menggunakan akun yang dikelola oleh Admin, dengan hak akses sesuai peran yang ditetapkan. | High |
+| **AP-06** | Sirkulasi (Peminjaman & Pengembalian) | Sistem memproses transaksi peminjaman dan pengembalian buku yang dioperasikan oleh Pustakawan. Denda dihitung otomatis per hari keterlambatan setelah melewati toleransi satu minggu. Riwayat transaksi dapat difilter berdasarkan periode, anggota, atau judul. | High |
+| **AP-07** | Bibliografi | Sistem mengelola data koleksi buku. Pustakawan dapat melihat data koleksi. Admin dapat melakukan operasi CRUD terhadap data bibliografi dan mencetak barcode eksemplar (opsional, menyesuaikan ketersediaan perangkat). | High |
+| **AP-08** | Profil | Sistem menyediakan halaman profil bagi Pustakawan dan Admin untuk melihat dan memperbarui informasi akun seperti nama, email, dan kata sandi. | Low |
+| **AP-09** | Denda | Sistem mengelola pencatatan dan pembayaran denda keterlambatan yang dioperasikan oleh Pustakawan. Besaran denda dihitung otomatis berdasarkan tarif dan jumlah hari keterlambatan. | High |
+| **AP-10** done | Login Admin | Sistem mengautentikasi Admin melalui antarmuka khusus administrator dengan hak akses penuh terhadap seluruh konfigurasi dan operasional sistem. | High |
+| **AP-11** | Database | Sistem menyediakan fasilitas backup, import, dan export basis data yang dioperasikan oleh Admin untuk keperluan pemeliharaan dan migrasi data. | High |
+| **AP-12** | Laporan | Sistem menghasilkan laporan statistik perpustakaan yang dicetak oleh Admin, mencakup data koleksi, keanggotaan, sirkulasi, dan rekap pengunjung per bulan dalam format Excel dan PDF. Tersedia pula laporan buku rusak dan hilang. | High |
+| **AP-13** done | Master File | Sistem menyediakan pengelolaan data referensi oleh Admin, mencakup GMD, mata kuliah, topik, penerbit, rak buku, dan pengarang. | Medium |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+# 4. Integrasi
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. **SIAKAD / LMS**
+   * **Tujuan:** Otomatisasi pendaftaran dan pembaharuan data keanggotaan perpustakaan.
+   * **Mekanisme:** Aplikasi perpustakaan akan melakukan *pull data* (menarik data) dari *endpoint* API SIAKAD/LMS kampus secara berkala.
+   * **Data yang Ditarik:** Data demografi mahasiswa baru, meliputi NIM, nama, fakultas, program studi, dan email untuk dimasukkan ke dalam tabel members. Hal ini menghilangkan proses input data manual oleh pustakawan saat ada mahasiswa baru.
 
-## Contributing
+2. **WhatsApp Gateway**
+   * **Tujuan:** Fitur notifikasi otomatis.
+   * **Mekanisme:** Sistem diintegrasikan dengan penyedia layanan WhatsApp API/Gateway pihak ketiga (Fonnte). Aplikasi akan melakukan HTTP POST Request ke endpoint Fonnte untuk mengirimkan pesan kepada nomor WhatsApp anggota (`whatsapp_number`).
+   * **Skenario Penggunaan:** Pengiriman notifikasi tagihan denda, pengingat jatuh tempo pengembalian buku (H-1 Due Date).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **API Hari Libur Nasional** done
+   * **Tujuan:** Otomatisasi perhitungan hari kerja efektif untuk penentuan tanggal jatuh tempo (*due date*) peminjaman, agar sistem secara presisi mengabaikan tanggal merah tanpa perlu pengaturan manual oleh pustakawan.
+   * **Mekanisme:** Aplikasi menggunakan fitur Task Scheduler untuk melakukan penarikan data (*pull data* via HTTP GET Request) dari endpoint API Kalender Publik (seperti Google Calendar API atau API open-source Hari Libur Indonesia) secara terjadwal (misalnya setahun atau sebulan sekali).
+   * **Data yang Ditarik:** Data kalender tanggal merah yang meliputi tanggal spesifik (`holiday_date`) dan keterangan nama libur (`description`) untuk disimpan dan disinkronisasikan ke dalam tabel `mst_holidays`.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 5. Kebutuhan Non-Fungsional
 
-## Security Vulnerabilities
+**Keamanan:**
+* Sistem harus mengamankan data sensitif pengguna.
+* Sistem harus aman dari kebocoran data dan akses yang tidak sah.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Performa:**
+* Sistem harus memiliki waktu *response* yang cepat.
+* Penulisan *query* basis data harus efisien.
 
-## License
+**Kebergunaan:**
+* Antarmuka publik menggunakan pendekatan *mobile-first* atau *responsive* dan mudah digunakan.
+* Antarmuka admin harus mudah dipahami dan digunakan.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Pemeliharaan:**
+* Harus menyediakan *code* yang bersih serta dokumentasi yang jelas.

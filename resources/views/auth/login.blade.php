@@ -5,11 +5,11 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- NIM -->
+        <!-- NIM / Kode Anggota -->
         <div>
-            <x-input-label for="nim" :value="__('NIM')" />
-            <x-text-input id="nim" class="block mt-1 w-full" type="text" name="nim" :value="old('nim')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('nim')" class="mt-2" />
+            <x-input-label for="member_code" :value="__('NIM / Kode Anggota')" />
+            <x-text-input id="member_code" class="block mt-1 w-full" type="text" name="member_code" :value="old('member_code')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('member_code')" class="mt-2" />
         </div>
 
         <!-- Password -->

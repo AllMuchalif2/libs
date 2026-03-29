@@ -28,7 +28,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nim' => ['required', 'string'],
+            'member_code' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -42,11 +42,11 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::guard('member')->attempt($this->only('nim', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('member')->attempt($this->only('member_code', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'nim' => trans('auth.failed'),
+                'member_code' => trans('auth.failed'),
             ]);
         }
 
@@ -69,7 +69,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'nim' => trans('auth.throttle', [
+            'member_code' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -81,6 +81,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('nim')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('member_code')).'|'.$this->ip());
     }
 }
