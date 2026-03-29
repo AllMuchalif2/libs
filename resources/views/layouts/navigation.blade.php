@@ -17,7 +17,7 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                         <x-nav-link :href="route('visitor.history')" :active="request()->routeIs('visitor.history')">
-                            {{ __('Riwayat Kunjungan') }}
+                            {{ __('Library Visit History') }}
                         </x-nav-link>
                     @else
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
@@ -104,7 +104,7 @@
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('visitor.history')" :active="request()->routeIs('visitor.history')">
-                    {{ __('Riwayat Kunjungan') }}
+                    {{ __('Library Visit History') }}
                 </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
@@ -119,7 +119,7 @@
                 @auth
                     <div>
                         <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->member_code }}</div>
                     </div>
                 @endauth
                 

@@ -2,7 +2,7 @@
     <div class="mb-6 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-100 dark:border-gray-600">
         <div class="flex flex-col sm:flex-row sm:items-end space-y-4 sm:space-y-0 sm:space-x-4">
             <div class="flex-1">
-                <x-input-label for="filterDate" :value="__('Cari Tanggal Kunjungan')" />
+                <x-input-label for="filterDate" :value="__('Search Visit Date')" />
                 <x-text-input id="filterDate" type="date" class="block mt-1 w-full" wire:model="filterDate" />
             </div>
             <div class="flex space-x-2">
@@ -27,6 +27,7 @@
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                 </path>
             </svg>
+            {{ __('Processing...') }}
         </div>
     </div>
 
@@ -37,8 +38,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Belum ada riwayat</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Tidak ada riwayat kunjungan pada tanggal ini.
+                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">{{ __('No history yet') }}</h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('No visit history on this date.') }}
                 </p>
             </div>
         @else
@@ -48,15 +49,14 @@
                     <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-100 dark:border-gray-600">
                         <div class="flex justify-between items-center mb-2">
                             <span
-                                class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Waktu
-                                Kunjungan</span>
+                                class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">{{ __('Visit Time') }}</span>
                             <span
                                 class="text-sm font-medium">{{ $record->visit_date->translatedFormat('d F Y') }}</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span
-                                class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Jam</span>
-                            <span class="text-sm font-medium">{{ $record->visit_date->format('H:i') }} WIB</span>
+                                class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Hour') }}</span>
+                            <span class="text-sm font-medium">{{ $record->visit_date->format('H:i') }} {{ __('WIB') }}</span>
                         </div>
                     </div>
                 @endforeach
@@ -72,10 +72,10 @@
                                 No</th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Tanggal</th>
+                                {{ __('Date') }}</th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Waktu</th>
+                                {{ __('Time') }}</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -89,7 +89,7 @@
                                     {{ $record->visit_date->translatedFormat('d F Y') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    {{ $record->visit_date->format('H:i') }} WIB
+                                    {{ $record->visit_date->format('H:i') }} {{ __('WIB') }}
                                 </td>
                             </tr>
                         @endforeach
