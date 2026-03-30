@@ -36,6 +36,12 @@ class HolidayFetcherService
             foreach ($holidays as $holiday) {
                 if (!isset($holiday['date'])) continue;
 
+                // Hanya ambil data libur hari ini dan yang akan datang
+                $today = date('Y-m-d');
+                if ($holiday['date'] < $today) {
+                    continue;
+                }
+
                 $record = MstHoliday::withTrashed()
                     ->where('holiday_date', $holiday['date'])
                     ->first();

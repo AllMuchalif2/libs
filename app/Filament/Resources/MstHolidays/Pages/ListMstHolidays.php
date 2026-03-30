@@ -16,6 +16,8 @@ use Filament\Resources\Pages\ListRecords;
 class ListMstHolidays extends ListRecords
 {
     protected static string $resource = MstHolidayResource::class;
+    
+    protected string $view = 'filament.resources.mst-holiday-resource.pages.list-mst-holidays';
 
     protected ?string $heading = 'Kelola Hari Libur';
 
