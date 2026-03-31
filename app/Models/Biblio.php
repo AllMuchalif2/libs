@@ -47,4 +47,9 @@ class Biblio extends Model
     {
         return $this->belongsToMany(MstTopic::class, 'biblio_topics', 'biblio_id', 'topic_id');
     }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'biblio_id', 'biblio_id');
+    }
 }

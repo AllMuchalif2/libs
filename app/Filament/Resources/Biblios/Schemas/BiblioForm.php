@@ -41,7 +41,7 @@ class BiblioForm
                     ->multiple()
                     ->searchable()
                     ->preload()
-                    ->label('Subjek'),
+                    ->label('Mata Kuliah'),
                 Select::make('topics')
                     ->relationship('topics', 'name')
                     ->multiple()
@@ -59,7 +59,7 @@ class BiblioForm
                 TextInput::make('classification')
                     ->required()
                     ->maxLength(10)
-                    ->label('Klasifikasi'),
+                    ->label('Klasifikasi DDC'),
                 FileUpload::make('cover_image')
                     ->image()
                     ->disk('public_uploads')

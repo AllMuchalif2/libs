@@ -20,6 +20,9 @@ class BibliosTable
     {
         return $table
             ->columns([
+                TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 ImageColumn::make('cover_image')
                     ->disk('public_uploads')
                     ->label('Sampul')
@@ -53,7 +56,7 @@ class BibliosTable
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('classification')
-                    ->label('Klasifikasi DDC')
+                    ->label('DDC')
                     ->searchable(),
                 TextColumn::make('isbn_issn')
                     ->label('ISBN/ISSN')
@@ -67,10 +70,14 @@ class BibliosTable
             ->filters([
             ])
             ->recordActions([
-                ViewAction::make(),
+                Action::make('manageItems')
+                    ->label('lihat')
+                    ->icon('heroicon-o-eye')
+                    ->color('primary')
+                    ->url(fn(Biblio $record): string => route('filament.admin.resources.biblios.items', ['record' => $record->biblio_id])),
                 EditAction::make()->visible(fn() => auth()->user()->role === 'admin'),
                 Action::make('printBarcode')
-                    ->label('Cetak Barcode')
+                    ->label('barcode')
                     ->icon('heroicon-o-qr-code')
                     ->color('info')
                     ->url(fn(Biblio $record): string => route('filament.admin.resources.biblios.barcode', ['record' => $record->biblio_id]))

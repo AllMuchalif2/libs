@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Biblios;
 use App\Filament\Resources\Biblios\Pages\CreateBiblio;
 use App\Filament\Resources\Biblios\Pages\EditBiblio;
 use App\Filament\Resources\Biblios\Pages\ListBiblios;
+use App\Filament\Resources\Biblios\Pages\ManageBiblioItems;
 use App\Filament\Resources\Biblios\Pages\PrintBarcode;
 use App\Filament\Resources\Biblios\Schemas\BiblioForm;
 use App\Filament\Resources\Biblios\Tables\BibliosTable;
@@ -55,6 +56,7 @@ class BiblioResource extends Resource
             'create' => CreateBiblio::route('/create'),
             'edit' => EditBiblio::route('/{record}/edit'),
             'barcode' => PrintBarcode::route('/{record}/barcode'),
+            'items' => ManageBiblioItems::route('/{record}/items'),
         ];
     }
 
