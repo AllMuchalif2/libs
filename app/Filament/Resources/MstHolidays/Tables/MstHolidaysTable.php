@@ -20,7 +20,7 @@ class MstHolidaysTable
         return $table
             ->columns([
                 TextColumn::make('no')
-                    ->label('No')
+                    ->label('#')
                     ->rowIndex(),
                 TextColumn::make('holiday_date')
                     ->label('Tanggal Libur')

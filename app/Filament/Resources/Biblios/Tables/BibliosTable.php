@@ -21,7 +21,7 @@ class BibliosTable
         return $table
             ->columns([
                 TextColumn::make('no')
-                    ->label('No')
+                    ->label('#')
                     ->rowIndex(),
                 ImageColumn::make('cover_image')
                     ->disk('public_uploads')
@@ -76,12 +76,6 @@ class BibliosTable
                     ->color('primary')
                     ->url(fn(Biblio $record): string => route('filament.admin.resources.biblios.items', ['record' => $record->biblio_id])),
                 EditAction::make()->visible(fn() => auth()->user()->role === 'admin'),
-                Action::make('printBarcode')
-                    ->label('barcode')
-                    ->icon('heroicon-o-qr-code')
-                    ->color('info')
-                    ->url(fn(Biblio $record): string => route('filament.admin.resources.biblios.barcode', ['record' => $record->biblio_id]))
-                    ->openUrlInNewTab(),
                 DeleteAction::make()->visible(fn() => auth()->user()->role === 'admin'),
             ])
             ->toolbarActions([

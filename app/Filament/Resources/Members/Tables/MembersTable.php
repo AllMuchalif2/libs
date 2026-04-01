@@ -20,7 +20,7 @@ class MembersTable
         return $table
             ->columns([
                 TextColumn::make('no')
-                    ->label('No')
+                    ->label('#')
                     ->rowIndex(),
                 TextColumn::make('member_code')
                     ->label('Kode Anggota')

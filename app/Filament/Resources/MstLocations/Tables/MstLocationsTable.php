@@ -16,7 +16,7 @@ class MstLocationsTable
         return $table
             ->columns([
                 TextColumn::make('no')
-                    ->label('No')
+                    ->label('#')
                     ->rowIndex(),
                 TextColumn::make('name')
                     ->label('Nama Lokasi')

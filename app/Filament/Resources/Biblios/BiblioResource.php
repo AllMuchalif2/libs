@@ -6,7 +6,7 @@ use App\Filament\Resources\Biblios\Pages\CreateBiblio;
 use App\Filament\Resources\Biblios\Pages\EditBiblio;
 use App\Filament\Resources\Biblios\Pages\ListBiblios;
 use App\Filament\Resources\Biblios\Pages\ManageBiblioItems;
-use App\Filament\Resources\Biblios\Pages\PrintBarcode;
+use App\Filament\Resources\Biblios\Pages\PrintBiblioItem;
 use App\Filament\Resources\Biblios\Schemas\BiblioForm;
 use App\Filament\Resources\Biblios\Tables\BibliosTable;
 use App\Models\Biblio;
@@ -30,10 +30,10 @@ class BiblioResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Sistem Kelola'; // Using 'Sistem Kelola' or just 'Bibliografi', user had their own structure. Let's make it null or 'Sistem'.
+        return null;
     }
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookOpen;
 
@@ -55,8 +55,8 @@ class BiblioResource extends Resource
             'index' => ListBiblios::route('/'),
             'create' => CreateBiblio::route('/create'),
             'edit' => EditBiblio::route('/{record}/edit'),
-            'barcode' => PrintBarcode::route('/{record}/barcode'),
             'items' => ManageBiblioItems::route('/{record}/items'),
+            'print-item' => PrintBiblioItem::route('/{record}/print-item'),
         ];
     }
 

@@ -13,6 +13,10 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\BulkAction;
+use Illuminate\Database\Eloquent\Collection;
 
 class ManageBiblioItems extends ManageRelatedRecords
 {
@@ -85,9 +89,9 @@ class ManageBiblioItems extends ManageRelatedRecords
         return $table
             ->recordTitleAttribute('item_code')
             ->columns([
-                TextColumn::make('item_id')
-                    ->label('ID Item')
-                    ->searchable(),
+                TextColumn::make('no')
+                    ->label('#')
+                    ->rowIndex(),
                 TextColumn::make('item_code')
                     ->label('Kode Item')
                     ->searchable(),
@@ -114,8 +118,35 @@ class ManageBiblioItems extends ManageRelatedRecords
                 CreateAction::make()->visible(fn() => auth()->user()->role === 'admin'),
             ])
             ->actions([
+                Action::make('cetak_label')
+                    ->label('Cetak Label')
+                    ->icon('heroicon-o-printer')
+                    ->color('info')
+                    ->url(fn ($record) => route(
+                        'filament.admin.resources.biblios.print-item',
+                        ['record' => $record->biblio_id, 'items' => $record->item_id]
+                    ))
+                    ->openUrlInNewTab(),
                 EditAction::make()->visible(fn() => auth()->user()->role === 'admin'),
                 DeleteAction::make()->visible(fn() => auth()->user()->role === 'admin'),
+            ])
+            ->bulkActions([
+                BulkActionGroup::make([
+                    BulkAction::make('cetak_label_bulk')
+                        ->label('Cetak Label Terpilih')
+                        ->icon('heroicon-o-printer')
+                        ->color('info')
+                        ->action(function (Collection $records) {
+                            $biblio = $records->first()->biblio_id;
+                            $ids = $records->pluck('item_id')->implode(',');
+                            $url = route('filament.admin.resources.biblios.print-item', [
+                                'record' => $biblio,
+                                'items'  => $ids,
+                            ]);
+                            $this->js("window.open('$url', '_blank')");
+                        })
+                        ->deselectRecordsAfterCompletion(),
+                ]),
             ]);
     }
 }

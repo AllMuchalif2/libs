@@ -16,7 +16,7 @@ class MstAuthorsTable
         return $table
             ->columns([
                 TextColumn::make('no')
-                    ->label('No')
+                    ->label('#')
                     ->rowIndex(),
                 TextColumn::make('name')
                     ->label('Nama Penulis')
