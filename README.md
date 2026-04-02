@@ -30,7 +30,7 @@ Memigrasi aplikasi perpustakaan dari SLiMS 7 Senayan menjadi aplikasi baru karen
 | ID | Fitur | Deskripsi | Prioritas |
 | :--- | :--- | :--- | :--- |
 | **AP-01** | Online Catalog | Sistem menyediakan fitur pencarian dan tampilan detail koleksi buku secara daring. Pengguna (Tamu dan Anggota) dapat mencari buku berdasarkan judul, pengarang, atau kategori, serta melihat informasi bibliografi dan status ketersediaan buku. | High |
-| **AP-02** | Buku Tamu | Sistem menyediakan fitur pencatatan kunjungan digital. Tamu dapat mengisi buku tamu tanpa login, sedangkan Anggota dapat melihat riwayat kunjungan mereka. | Medium |
+| **AP-02** done | Buku Tamu | Sistem menyediakan fitur pencatatan kunjungan digital. Tamu dapat mengisi buku tamu tanpa login, sedangkan Anggota dapat melihat riwayat kunjungan mereka. | Medium |
 | **AP-03** done | Login Anggota | Sistem mengautentikasi Anggota menggunakan username dan password terdaftar. Akses ditolak apabila kredensial tidak valid. | High |
 | **AP-04** | Keanggotaan | Sistem mengelola data keanggotaan sesuai hak akses masing-masing peran. Anggota dapat melihat riwayat kunjungan dan peminjaman dan menerima notifikasi jatuh tempo. Pustakawan dapat mencetak kartu anggota. Admin dapat menarik data dari SIAKAD, menambah anggota baru, dan mencetak kartu anggota. | High |
 | **AP-05** done | Login Pustakawan | Sistem mengautentikasi Pustakawan menggunakan akun yang dikelola oleh Admin, dengan hak akses sesuai peran yang ditetapkan. | High |

@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\VisitorHistoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+Route::get('/katalog/{slug}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Route::get('/buku-tamu', function () {
     return view('guest-book');
