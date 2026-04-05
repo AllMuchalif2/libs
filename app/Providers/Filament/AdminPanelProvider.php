@@ -32,6 +32,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(Login::class)
+            ->brandLogo(asset('logo.svg'))
+            ->brandLogoHeight('2rem')
+            ->favicon(asset('logo.svg'))
+            ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Blue,
                 'secondary' => Color::Amber,
@@ -69,17 +73,31 @@ class AdminPanelProvider extends PanelProvider
                     ->selectable()
                     ->editable()
                     ->config([
-                        'firstDay' => 1, 
+                        'firstDay' => 1,
                     ]),
             ])
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
-                fn (): string => Blade::render('
+                fn(): string => Blade::render('
                     <style>
                         .fc-day-sat, .fc-day-sun { background-color: rgba(239, 68, 68, 0.08) !important; }
                         .fc-day-today { background-color: rgba(59, 130, 246, 0.12) !important; }
                         .fc-col-header-cell.fc-day-sat, .fc-col-header-cell.fc-day-sun { color: #ef4444; }
                     </style>
+                '),
+            )
+            ->renderHook(
+                PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
+                fn(): string => Blade::render('
+                    <div style="text-align: center;">
+                        <x-filament::link 
+                            :href="url()->previous() === url()->current() ? url(\'/\') : url()->previous()"
+                            color="gray"
+                            size="sm"
+                        >
+                            {{ __(\'Kembali\') }}
+                        </x-filament::link>
+                    </div>
                 '),
             );
     }

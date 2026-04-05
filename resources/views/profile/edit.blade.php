@@ -15,7 +15,7 @@
             </div>
 
             {{-- Bottom Grid for Password & Deletion --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start"> --}}
                 {{-- Update Password --}}
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div class="w-full">
@@ -24,12 +24,12 @@
                 </div>
 
                 {{-- Delete Account --}}
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                {{-- <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div class="w-full">
                         @include('profile.partials.delete-user-form')
                     </div>
-                </div>
-            </div>
+                </div> --}}
+            {{-- </div> --}}
         </div>
     </div>
 </x-app-layout>
